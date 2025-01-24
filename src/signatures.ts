@@ -1,6 +1,6 @@
 export const ownSignature = 0x8ca2;
 
-const SIGNATURES: { [key: number]: string } = {
+export const SIGNATURES: { [key: number]: string } = {
     // Sony
     0x120: 'Sony MZ-N505/MZ-N707/MZ-N1/MZ-S1/MZ-R910',
     0x121: 'Sony MZ-N510/MZ-N520/MZ-NE410/MZ-N910/MZ-N920/MZ-N710/MZ-N10 / Aiwa AM-NX9',
@@ -32,6 +32,7 @@ const SIGNATURES: { [key: number]: string } = {
     0x305: 'Panasonic SJ-MR100/SJ-MR200',
     0x307: 'Panasonic SJ-MR220',
     0x308: 'Panasonic SJ-MR250',
+
     0x30A: 'Panasonic SJ-MR240/SJ-MR270',
     
     // Technics
@@ -56,5 +57,3 @@ const SIGNATURES: { [key: number]: string } = {
     
     [ownSignature]: 'TOCManip',
 };
-
-export default SIGNATURES;

@@ -1,16 +1,52 @@
-import SIGNATURES from './signatures';
+import { SIGNATURES } from './signatures';
 import { Fragment, ModeFlag, Timestamp, ToC } from './toc';
 import { assert } from './utils';
+import jconv from 'jconv';
 
-export function getTitleByCellIndex(toc: ToC, index: number, _depth: number = 0): string {
-    if(_depth > 10) return "...";
-    assert(index >= 0 && index < 256);
-    let cell = toc.titleCellList[index];
-    return cell.title + (cell.link != 0 ? getTitleByCellIndex(toc, cell.link, _depth + 1) : '');
+const textDecoder = new TextDecoder();
+
+function concatUint8Arrays(arrs: Uint8Array[]) {
+    const newArray = new Uint8Array(arrs.reduce((a, b) => a + b.length, 0)).fill(0);
+    let cursor = 0;
+    for(let arr of arrs){
+        newArray.set(arr, cursor);
+        cursor += arr.length;
+    }
+    return newArray;
 }
 
-export function getTitleByTrackNumber(toc: ToC, index: number): string {
-    return getTitleByCellIndex(toc, toc.titleMap[index]);
+export function getTitleByCellIndex(toc: ToC, index: number, fullWidth: boolean = false, forceZeroFirst = false): string {
+    let depth = 0;
+    let cell = index;
+    let cells: Uint8Array[] = [];
+    assert(index >= 0 && index < 256);
+
+
+    while(cell != 0 || forceZeroFirst) {
+        if(depth > 10) {
+            cells.push(new TextEncoder().encode('...'));
+            break;
+        }
+        const cellContents = (fullWidth ? toc.fullWidthTitleCellList : toc.titleCellList)[cell];
+        cells.push(new Uint8Array(cellContents.title));
+        cell = cellContents.link;
+        depth += 1;
+        forceZeroFirst = false;
+    }
+    let flat = concatUint8Arrays(cells);
+    const zeroIndex = flat.indexOf(0);
+    if(zeroIndex !== -1) {
+        flat = flat.slice(0, zeroIndex);
+    }
+    if(fullWidth) {
+        return jconv.decode(Buffer.from(flat), "SJIS");
+    } else {
+        return textDecoder.decode(flat);
+    }
+}
+
+export function getTitleByTrackNumber(toc: ToC, index: number, fullWidth = false, forceZeroFirst = false): string {
+    return getTitleByCellIndex(toc, fullWidth ? toc.fullWidthTitleMap[index] : toc.titleMap[index], fullWidth, forceZeroFirst);
 }
 
 export function isValidFragment(fragment: Fragment): boolean {

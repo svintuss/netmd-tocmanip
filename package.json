@@ -1,6 +1,6 @@
 {
   "name": "netmd-tocmanip",
-  "version": "0.1.6",
+  "version": "0.2.1",
   "description": "A library that lets you parse and edit Minidiscs' table of contents with ease",
   "main": "dist/index.js",
   "scripts": {
@@ -24,5 +24,8 @@
   "devDependencies": {
     "prettier": "^2.7.1",
     "ts-node": "^10.7.0"
+  },
+  "dependencies": {
+    "jconv": "github:asivery/jconv-webminidisc"
   }
 }
