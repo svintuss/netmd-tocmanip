@@ -2,7 +2,7 @@ export const ownSignature = 0x8ca2;
 
 const SIGNATURES: { [key: number]: string } = {
     // Sony
-    0x120: 'Sony MZ-N505/MZ-N707/MZ-N1/MZ-R910',
+    0x120: 'Sony MZ-N505/MZ-N707/MZ-N1/MZ-S1/MZ-R910',
     0x121: 'Sony MZ-N510/MZ-N520/MZ-NE410/MZ-N910/MZ-N920/MZ-N710/MZ-N10 / Aiwa AM-NX9',
     0x124: 'Sony MZ-R3 / Sony MZ-RH10',    // R3 From minidisc.org
     0x122: 'Sony MZ-NH1/MZ-NH700/MZ-NH900',
@@ -29,19 +29,30 @@ const SIGNATURES: { [key: number]: string } = {
     0x17E: 'Sony MDS-E10/MDS-E12',
 
     // Panasonic
-    0x305: 'Panasonic SJ-MR100',
+    0x305: 'Panasonic SJ-MR100/SJ-MR200',
     0x307: 'Panasonic SJ-MR220',
     0x308: 'Panasonic SJ-MR250',
-    0x30A: 'Panasonic SJ-MR270'
+    0x30A: 'Panasonic SJ-MR240/SJ-MR270',
+    
+    // Technics
+    0x304: 'Technics SJ-MD150',
     
     // Sharp
     0xA11: 'Sharp MD-MS701',
     0xA23: 'Sharp MD-F250',
     
     // Teac/Tascam
-    0x1209: 'Tascam MD-CD1mkII', // (Sony MD drive)
+    0x1209: 'Tascam MD-CD1/MD-CD1mkII', // (Sony MD drive)
     0xA26: 'Tascam MD-CD1mkIII', // (Sharp MD drive)
+    
+    // Aiwa
     0xD0A: 'Aiwa AM-F70',
+    0xD0B: 'Aiwa AM-F72',
+    
+    //Yamaha
+    0x1001: 'Yamaha MD4',
+    0x1003: 'Yamaha MD4s'
+    0xA13: 'Yamaha MDX-595',
     
     [ownSignature]: 'TOCManip',
 };
